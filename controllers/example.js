@@ -1,6 +1,7 @@
 // Import Dependencies
 const express = require('express')
 const Example = require('../models/example')
+const Movie = require('../models/movie')
 
 // Create router
 const router = express.Router()
@@ -23,12 +24,12 @@ router.use((req, res, next) => {
 
 // index ALL
 router.get('/', (req, res) => {
-	Example.find({})
-		.then(examples => {
+	Movie.find({})
+		.then(movies => {
 			const username = req.session.username
 			const loggedIn = req.session.loggedIn
 			
-			res.render('examples/index', { examples, username, loggedIn })
+			res.render('examples/index', { movies, username, loggedIn })
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
@@ -87,7 +88,7 @@ router.put('/:id', (req, res) => {
 	const exampleId = req.params.id
 	req.body.ready = req.body.ready === 'on' ? true : false
 
-	Example.findByIdAndUpdate(exampleId, req.body, { new: true })
+	Movie.findByIdAndUpdate(exampleId, req.body, { new: true })
 		.then(example => {
 			res.redirect(`/examples/${example.id}`)
 		})
@@ -99,7 +100,7 @@ router.put('/:id', (req, res) => {
 // show route
 router.get('/:id', (req, res) => {
 	const exampleId = req.params.id
-	Example.findById(exampleId)
+	Movie.findById(exampleId)
 		.then(example => {
             const {username, loggedIn, userId} = req.session
 			res.render('examples/show', { example, username, loggedIn, userId })

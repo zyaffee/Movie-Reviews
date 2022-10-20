@@ -9,7 +9,6 @@ Sign up
 Log in
 Log out
 View all movies in DB
-Log in and add movies to DB
 View each movie page individually and the list of reviews there
 View each review page and the comments there
 Log in and write edit and delete reviews
